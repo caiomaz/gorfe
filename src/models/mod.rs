@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-// Struct to represent the interest calculation request
 #[derive(Deserialize, Serialize)]
 pub struct InterestRequest {
     pub initial_capital: f64,
@@ -8,7 +7,6 @@ pub struct InterestRequest {
     pub time: u32,
 }
 
-// Struct to represent the interest calculation response
 #[derive(Serialize)]
 pub struct InterestResponse {
     pub amount: f64,
