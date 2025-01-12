@@ -5,6 +5,7 @@ services:
       - "4000:4000"
     environment:
       - RUST_LOG=info
+      - SENTRY_DSN=https://f10ec06978e996aea2a2542c5320f9da@o4508631411064832.ingest.us.sentry.io/4508632300847104
     networks:
       - gorfe-network
     

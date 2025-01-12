@@ -1,14 +1,20 @@
 use axum::{Router, Server};
-use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 use axum_prometheus::PrometheusMetricLayer;
+use sentry::integrations::tracing::layer as sentry_layer;
 use std::net::SocketAddr;
-mod routes;
+use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+use std::env;
 mod models;
+mod routes;
 mod services;
 
 #[tokio::main]
 async fn main() {
+    let dsn = env::var("SENTRY_DSN").expect("SENTRY_DSN must be set");
+    let _guard = sentry::init((dsn, sentry::ClientOptions::default()));
+
     tracing_subscriber::registry()
+        .with(sentry_layer())
         .with(tracing_subscriber::fmt::layer())
         .init();
 
