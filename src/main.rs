@@ -1,4 +1,6 @@
 use axum::{Router, Server};
+use sentry::integrations::panic::register_panic_handler;
+use axum_prometheus::PrometheusMetricLayer;
 use std::net::SocketAddr;
 mod routes;
 mod models;
@@ -6,8 +8,15 @@ mod services;
 
 #[tokio::main]
 async fn main() {
+    let _guard = sentry::init(("https://f10ec06978e996aea2a2542c5320f9da@o4508631411064832.ingest.us.sentry.io/4508632300847104", sentry::ClientOptions {
+        release: sentry::release_name!(),
+        ..Default::default()
+    }));
+
+    let prometheus_layer = PrometheusMetricLayer::new();
+
     // Create the application router
-    let app: Router = routes::create_router();
+    let app: Router = routes::create_router().layer(prometheus_layer);
 
     // Define the address and port for the server
     let addr: SocketAddr = SocketAddr::from(([0, 0, 0, 0], 4000));
