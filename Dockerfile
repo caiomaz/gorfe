@@ -13,8 +13,11 @@ COPY src ./src
 # Compile o aplicativo
 RUN cargo build --release
 
-# Use uma imagem mais leve para a execução
-FROM debian:buster-slim
+# Use a imagem oficial do Debian como base
+FROM debian:latest
+
+# Instale as dependências necessárias
+RUN apt-get update && apt-get install -y libssl-dev ca-certificates && rm -rf /var/lib/apt/lists/*
 
 # Copie o binário compilado do estágio anterior
 COPY --from=builder /usr/src/app/target/release/gorfe /usr/local/bin/gorfe
