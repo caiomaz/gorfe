@@ -5,4 +5,9 @@ services:
       - "4000:4000"
     environment:
       - RUST_LOG=info
-      
+    networks:
+      - gorfe-network
+
+networks:
+  gorfe-network:
+    driver: bridge
