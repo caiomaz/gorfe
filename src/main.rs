@@ -1,6 +1,6 @@
 use axum::{Router, Server};
 use sentry::integrations::anyhow::capture_anyhow;
-use axum_extra::middleware::metrics::PrometheusMetricLayer;
+use axum_prometheus::PrometheusMetricLayer;
 use std::net::SocketAddr;
 mod routes;
 mod models;
