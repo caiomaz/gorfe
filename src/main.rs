@@ -1,6 +1,6 @@
 use axum::{Router, Server};
-use sentry::integrations::panic::register_panic_handler;
-use axum_prometheus::PrometheusMetricLayer;
+use sentry::integrations::anyhow::capture_anyhow;
+use axum_extra::middleware::metrics::PrometheusMetricLayer;
 use std::net::SocketAddr;
 mod routes;
 mod models;
