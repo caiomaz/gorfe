@@ -37,6 +37,15 @@ services:
     networks:
       - gorfe-network
 
+    k6:
+      image: loadimpact/k6
+      volumes:
+      - ./load_test.js:/load_test.js
+      entrypoint: ["k6", "run", "/load_test.js"]
+      networks:
+      - gorfe-network
+      command: ["sleep", "infinity"]
+
 networks:
   gorfe-network:
     driver: bridge
