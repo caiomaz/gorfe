@@ -1,8 +1,28 @@
 services:
-  api:
+  api1:
     image: ghcr.io/caiomaz/gorfe:latest
     ports:
       - "4000:4000"
+    environment:
+      - RUST_LOG=info
+      - SENTRY_DSN=${SENTRY_DSN}
+    networks:
+      - gorfe-network
+
+  api2:
+    image: ghcr.io/caiomaz/gorfe:latest
+    ports:
+      - "4001:4000"
+    environment:
+      - RUST_LOG=info
+      - SENTRY_DSN=${SENTRY_DSN}
+    networks:
+      - gorfe-network
+
+  api3:
+    image: ghcr.io/caiomaz/gorfe:latest
+    ports:
+      - "4002:4000"
     environment:
       - RUST_LOG=info
       - SENTRY_DSN=${SENTRY_DSN}
