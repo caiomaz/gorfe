@@ -1,28 +1,8 @@
 services:
-  api1:
+  api:
     image: ghcr.io/caiomaz/gorfe:latest
     ports:
-      - "4000:4000"
-    environment:
-      - RUST_LOG=info
-      - SENTRY_DSN=${SENTRY_DSN}
-    networks:
-      - gorfe-network
-
-  api2:
-    image: ghcr.io/caiomaz/gorfe:latest
-    ports:
-      - "4001:4000"
-    environment:
-      - RUST_LOG=info
-      - SENTRY_DSN=${SENTRY_DSN}
-    networks:
-      - gorfe-network
-
-  api3:
-    image: ghcr.io/caiomaz/gorfe:latest
-    ports:
-      - "4002:4000"
+      - "4000-4003:4000"
     environment:
       - RUST_LOG=info
       - SENTRY_DSN=${SENTRY_DSN}
@@ -56,7 +36,6 @@ services:
       - WATCHTOWER_POLL_INTERVAL=${WATCHTOWER_POLL_INTERVAL}
       - REPO_USER=${REPO_USER}
       - REPO_PASS=${REPO_PASS}
-    command: --include-restarting api
     networks:
       - gorfe-network
 
