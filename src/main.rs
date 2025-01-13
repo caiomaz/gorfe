@@ -1,10 +1,10 @@
 use axum::{Router, Server};
 use axum_prometheus::PrometheusMetricLayer;
+use dotenv::dotenv;
 use sentry::integrations::tracing::layer as sentry_layer;
+use std::env;
 use std::net::SocketAddr;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
-use std::env;
-use dotenv::dotenv;
 mod models;
 mod routes;
 mod services;
