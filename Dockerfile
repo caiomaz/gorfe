@@ -4,8 +4,8 @@ FROM rust:latest AS builder
 # Defina o diretório de trabalho dentro do contêiner
 WORKDIR /usr/src/app
 
-# Copie o arquivo Cargo.toml e Cargo.lock para o diretório de trabalho
-COPY Cargo.toml Cargo.lock ./
+# Copie o arquivo Cargo.toml para o diretório de trabalho
+COPY Cargo.toml ./
 
 # Copie o diretório src para o diretório de trabalho
 COPY src ./src
