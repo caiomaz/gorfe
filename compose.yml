@@ -5,7 +5,7 @@ services:
       - "4000:4000"
     environment:
       - RUST_LOG=info
-      - SENTRY_DSN=any
+      - SENTRY_DSN=${SENTRY_DSN}
     networks:
       - gorfe-network
     
@@ -23,7 +23,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=any
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
     networks:
       - gorfe-network
 
@@ -32,10 +32,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_POLL_INTERVAL=300
-      - REPO_USER=any
-      - REPO_PASS=any
+      - WATCHTOWER_CLEANUP=${WATCHTOWER_CLEANUP}
+      - WATCHTOWER_POLL_INTERVAL=${WATCHTOWER_POLL_INTERVAL}
+      - REPO_USER=${REPO_USER}
+      - REPO_PASS=${REPO_PASS}
     command: --include-restarting api
     networks:
       - gorfe-network
