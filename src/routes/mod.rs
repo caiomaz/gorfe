@@ -1,5 +1,7 @@
 use axum::{extract::Json, response::IntoResponse, routing::{get, post}, Router};
 use crate::{models::{InterestRequest, InterestResponse}, services};
+use sentry::ClientOptions;
+use std::env;
 
 pub async fn calculate(Json(payload): Json<InterestRequest>) -> impl IntoResponse {
     tracing::info!("Recebido payload: {:?}", payload);
@@ -31,8 +33,16 @@ pub async fn root() -> impl IntoResponse {
     "Hello, World!"
 }
 
+pub async fn trigger_error() -> impl IntoResponse {
+    let dsn = env::var("SENTRY_DSN").expect("SENTRY_DSN must be set");
+    let _guard = sentry::init((dsn, ClientOptions::default()));
+    sentry::capture_message("This is a test error", sentry::Level::Error);
+    "Error sent to Sentry"
+}
+
 pub fn create_router() -> Router {
     Router::new() 
         .route("/", get(root))
         .route("/calculate", post(calculate))
+        .route("/trigger_error", get(trigger_error))
 }

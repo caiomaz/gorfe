@@ -4,12 +4,14 @@ use sentry::integrations::tracing::layer as sentry_layer;
 use std::net::SocketAddr;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 use std::env;
+use dotenv::dotenv;
 mod models;
 mod routes;
 mod services;
 
 #[tokio::main]
 async fn main() {
+    dotenv().ok();
     let dsn = env::var("SENTRY_DSN").expect("SENTRY_DSN must be set");
     let _guard = sentry::init((dsn, sentry::ClientOptions::default()));
 
