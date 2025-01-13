@@ -1,5 +1,4 @@
 use axum::{Router, Server};
-use axum_prometheus::PrometheusMetricLayer;
 use dotenv::dotenv;
 use sentry::integrations::tracing::layer as sentry_layer;
 use std::env;
@@ -22,9 +21,7 @@ async fn main() {
 
     tracing::info!("Iniciando servidor...");
 
-    let prometheus_layer = PrometheusMetricLayer::new();
-
-    let app: Router = routes::create_router().layer(prometheus_layer);
+    let app: Router = routes::create_router();
 
     let addr: SocketAddr = SocketAddr::from(([0, 0, 0, 0], 4000));
     println!("Server running at http://{}", addr);
