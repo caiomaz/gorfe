@@ -2,7 +2,7 @@ services:
   api:
     image: ghcr.io/caiomaz/gorfe:latest
     ports:
-      - "4000-4003:4000"
+      - "4000:4000"
     environment:
       - RUST_LOG=info
       - SENTRY_DSN=${SENTRY_DSN}
